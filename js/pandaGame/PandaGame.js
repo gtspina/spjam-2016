@@ -92,7 +92,7 @@ PandaGame.init = function() {
             active: true,
             image: undefined,
             id: "player",
-            pos: new Vector2(250, 720),
+            pos: new Vector2(250, 670),
             width: 86,
             height: 100,
             color: "black",
@@ -228,8 +228,8 @@ PandaGame.update = function(deltaTime) {
             that.player.pos.X += that.player.vel.X;
             that.player.pos.Y += that.player.vel.Y;
 
-            if (that.player.pos.Y > 720) {
-                that.player.pos.Y = 720;
+            if (that.player.pos.Y > 660) {
+                that.player.pos.Y = 660;
             }
 
             if (Keyboard.spaceClicked) {
@@ -382,8 +382,6 @@ PandaGame.draw = function(printer) {
                 printer: printer
             });
         }
-
-        printer.drawRect(that.player);
 
         printer.drawImage({
             pos: that.player.pos,
