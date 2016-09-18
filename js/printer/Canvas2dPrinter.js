@@ -73,6 +73,7 @@ Canvas2dPrinter.prototype.drawImage = function (config) {
     config.image.height = config.height;
 
     that.canvasContext.save();
+    that.canvasContext.scale(that.scale.X, that.scale.Y);
     that.canvasContext.translate(config.pos.X, config.pos.Y);
     that.canvasContext.rotate(config.rotation);
     that.canvasContext.drawImage(config.image, 0, 0, config.width, config.height, -config.origin.X, -config.origin.Y, config.width, config.height);

@@ -23,7 +23,7 @@ var PandaGame = {
     widthArea: 512,
     gameAreas: [],
     //initialPosAreas: new Vector2(0, -500)
-    initialPosAreas: new Vector2(0, -70),
+    initialPosAreas: new Vector2(0, 0),
 
     player: undefined,
 
@@ -93,8 +93,8 @@ PandaGame.init = function() {
             image: undefined,
             id: "player",
             pos: new Vector2(250, 720),
-            width: 50,
-            height: 50,
+            width: 86,
+            height: 100,
             color: "black",
         });
 
@@ -384,6 +384,12 @@ PandaGame.draw = function(printer) {
         }
 
         printer.drawRect(that.player);
+
+        printer.drawImage({
+            pos: that.player.pos,
+            origin: new Vector2(0, 0),
+            image: that.assets.img["panda1"]
+        });
 
         printer.drawText({
             content: "Tempo: " + Math.floor(that.time),
