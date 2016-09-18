@@ -20,10 +20,10 @@ var PandaGame = {
 
     numAreas: 4,
     //widthArea: 1067,
-    widthArea: 500,
+    widthArea: 512,
     gameAreas: [],
     //initialPosAreas: new Vector2(0, -500)
-    initialPosAreas: new Vector2(0, 0),
+    initialPosAreas: new Vector2(0, -70),
 
     player: undefined,
 
@@ -60,7 +60,7 @@ PandaGame.init = function() {
                 width: that.widthArea,
                 height: 800,
                 color: colors[currColorIndex],
-                //image: that.assets.img["bg1"],
+                image: that.assets.img["bg1"],
                 prevId: "area-" + (i - 1),
                 nextId: "area-" + (i + 1),
                 floors: PandaGameUtil.generateFloors(tempPos, "area-" + i)
@@ -90,6 +90,7 @@ PandaGame.init = function() {
     function createPlayer() {
         that.player = new Player({
             active: true,
+            image: undefined,
             id: "player",
             pos: new Vector2(250, 720),
             width: 50,

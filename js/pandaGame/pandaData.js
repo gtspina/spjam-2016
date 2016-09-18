@@ -9,7 +9,7 @@ var data = [
     {
         type: Image,
         name: "bg1",
-        localName: "bg1_2.png"
+        localName: "bg1_3.png"
     },
 
     {
