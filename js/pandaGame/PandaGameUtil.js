@@ -86,7 +86,8 @@ PandaGameUtil.generateFloors = function(initialPos, id) {
     var tempPos = new Vector2(initialPos.X, initialPos.Y);
     for (var indexRow in mapFloor) {
         //var colors = ["black", "orange", "transparent"];
-        var colors = ["transparent", "black", "orange", "blue",  "purple", "pink"];
+        //var colors = ["transparent", "black", "orange", "blue",  "purple", "pink"];
+        var colors = ["transparent", "black", "orange", "blue",  "transparent", "pink"];
         var floorRow = mapFloor[indexRow];
 
         for (var indexColumn in floorRow) {

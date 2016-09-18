@@ -19,6 +19,12 @@ var data = [
     },
 
     {
+        type: Image,
+        name: "pandaFemea",
+        localName: "pandaFemea.png"
+    },
+
+    {
         type: Audio,
         name: "level-theme",
         localName: "level-theme.wav"

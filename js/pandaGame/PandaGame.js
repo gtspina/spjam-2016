@@ -389,6 +389,22 @@ PandaGame.draw = function(printer) {
             image: that.assets.img["panda1"]
         });
 
+        
+        
+        var area2 = PandaGameUtil.getById({
+                gameObjs: that.gameAreas,
+                id: "area-2"
+        });
+        
+        console.log(area2.floors[48]);
+        
+
+        printer.drawImage({
+            pos: area2.floors[50].pos,
+            origin: new Vector2(0, 0),
+            image: that.assets.img["pandaFemea"]
+        });
+
         printer.drawText({
             content: "Tempo: " + Math.floor(that.time),
             font: "30px Segoe UI",
