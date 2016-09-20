@@ -31,6 +31,24 @@ var data = [
     },
 
     {
+        type: Image,
+        name: "sucess",
+        localName: "vitoria.png"
+    },
+
+    {
+        type: Image,
+        name: "bambu",
+        localName: "bambu.png"
+    },
+
+    {
+        type: Image,
+        name: "fail",
+        localName: "perder.png"
+    },
+
+    {
         type: Audio,
         name: "jump",
         localName: "jump.wav"
@@ -46,5 +64,11 @@ var data = [
         type: Audio,
         name: "intro",
         localName: "intro.wav"
+    },
+
+    {
+        type: Audio,
+        name: "game-over",
+        localName: "game-over.wav"
     }
 ];

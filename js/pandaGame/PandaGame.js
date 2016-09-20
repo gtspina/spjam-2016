@@ -11,7 +11,7 @@ var PandaGame = {
     sucess: false,
     flowers: 2,
 
-    time: 50,
+    time: 20,
 
     assets: {
         img: {},
@@ -111,7 +111,7 @@ PandaGame.update = function(deltaTime) {
             break;
 
         case PandaGameState.GameOver:
-            gameOver();
+            //gameOver();
 
             break;
     }
@@ -234,7 +234,7 @@ PandaGame.update = function(deltaTime) {
 
             if (Keyboard.spaceClicked) {
                 that.player.vel.Y = -10;
-                //that.assets.audio["jump"].play();
+                that.assets.audio["jump"].play();
             }
         }
 
@@ -310,6 +310,7 @@ PandaGame.update = function(deltaTime) {
                     if (currFloor.type == FloorType.Enemy) {
                         if (GameUtil.hasRectCollision(that.player, currFloor)) {
                             that.currState = PandaGameState.GameOver;
+                            gameOver();
                         }
                     }
                 }
@@ -321,6 +322,8 @@ PandaGame.update = function(deltaTime) {
 
             if (that.time < 1) {
                 that.currState = PandaGameState.GameOver;
+                that.sucess = false;
+                gameOver();
             }
         }
 
@@ -339,6 +342,7 @@ PandaGame.update = function(deltaTime) {
                         if (GameUtil.hasRectCollision(that.player, currFloor) && that.flowers < 1) {
                             that.sucess = true;
                             that.currState = PandaGameState.GameOver;
+                            gameOver();
                         }
                     }
                 }
@@ -347,27 +351,39 @@ PandaGame.update = function(deltaTime) {
     }
 
     function gameOver() {
-        that.assets.audio["intro"].play();
+
         that.assets.audio["level-theme"].pause();
+
+        if (that.sucess) {
+            that.assets.audio["intro"].play();
+        } else {
+            that.assets.audio["game-over"].play();
+        }
     }
 };
 
 PandaGame.draw = function(printer) {
     var that = this;
 
+	printer.drawRect({
+        active: true,
+        pos: new Vector2(0, 0),
+        width: 1024,
+        height: 768,
+        color: "black"
+    });
+	
     switch (that.currState) {
         case PandaGameState.InGame:
             inGame();
+            break;
+        case PandaGameState.GameOver:
+            gameOver();
+            break;
     }
 
     function inGame() {
-        printer.drawRect({
-            active: true,
-            pos: new Vector2(0, 0),
-            width: 1024,
-            height: 768,
-            color: "white"
-        });
+
 
         GameUtil.drawGameObjects({
             gameObjs: that.gameAreas,
@@ -389,15 +405,15 @@ PandaGame.draw = function(printer) {
             image: that.assets.img["panda1"]
         });
 
-        
-        
+
+
         var area2 = PandaGameUtil.getById({
-                gameObjs: that.gameAreas,
-                id: "area-2"
+            gameObjs: that.gameAreas,
+            id: "area-2"
         });
-        
+
         console.log(area2.floors[48]);
-        
+
 
         printer.drawImage({
             pos: area2.floors[50].pos,
@@ -412,5 +428,23 @@ PandaGame.draw = function(printer) {
             color: "#000",
             textBaseLine: "top",
         });
+    }
+
+
+    function gameOver() {
+
+        if (that.sucess) {
+            printer.drawImage({
+                pos: new Vector2(0, 0),
+                origin: new Vector2(0, 0),
+                image: that.assets.img["sucess"]
+            });
+        } else {
+            printer.drawImage({
+                pos: new Vector2(0, 0),
+                origin: new Vector2(0, 0),
+                image: that.assets.img["fail"]
+            });
+        }
     }
 };
