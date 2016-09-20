@@ -28,7 +28,7 @@ AssetsLoader.prototype.init = function () {
                 that.nextScene.assets.img[asset.name].src = baseFolder.img + asset.localName;
                 that.nextScene.assets.img[asset.name].onload = function () {
                     that.percentage += that.percentageByAssetLoaded;
-                    console.log("Asset", asset.name, "pronto!", that.percentage + "%");
+                    console.log("Asset", asset.name, "pronto!", Math.floor(that.percentage) + "%");
                     that.assetsLoading -= 1;
                 };
                 break;
@@ -39,7 +39,7 @@ AssetsLoader.prototype.init = function () {
                 that.nextScene.assets.audio[asset.name].src = baseFolder.audio + asset.localName;
                 that.nextScene.assets.audio[asset.name].onloadedmetadata = function () {
                     that.percentage += that.percentageByAssetLoaded;
-                    console.log("Asset", asset.name, "pronto!", that.percentage + "%");
+                    console.log("Asset", asset.name, "pronto!", Math.floor(that.percentage) + "%");
                     that.assetsLoading -= 1;
                 };
                 break;
@@ -65,7 +65,7 @@ AssetsLoader.prototype.draw = function (canvas) {
     var that = this;
 
     canvas.drawText({
-        content: "Carregando... " + (that.percentage) + "%",
+        content: "Carregando... " + Math.floor(that.percentage) + "%",
         font: "30px Segoe UI",
         pos: new Vector2(10, 120),
         color: "white",
