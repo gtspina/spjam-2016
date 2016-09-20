@@ -87,7 +87,7 @@ PandaGameUtil.generateFloors = function(initialPos, id) {
     for (var indexRow in mapFloor) {
         //var colors = ["black", "orange", "transparent"];
         //var colors = ["transparent", "black", "orange", "blue",  "purple", "pink"];
-        var colors = ["transparent", "black", "orange", "blue",  "transparent", "pink"];
+        var colors = ["transparent", "black", "orange", "blue", "transparent", "pink"];
         var floorRow = mapFloor[indexRow];
 
         for (var indexColumn in floorRow) {
@@ -104,11 +104,14 @@ PandaGameUtil.generateFloors = function(initialPos, id) {
                 rowPos: indexRow,
                 gameAreaId: id
             });
-            
-            if(floorType == FloorType.Enemy) {
+
+            if (floorType == FloorType.Enemy) {
                 floor.dir = new Vector2(5, 0);
                 floor.chamgeDirCounter = 20;
+            } else if (floorType == FloorType.Floor1 || floorType == FloorType.Floor2) {
+                
             }
+
 
             tempPos.X += 80;
             idFloor += 1;
