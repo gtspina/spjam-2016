@@ -117,7 +117,7 @@ PandaGameUtil.generateFloors = function(config) {
 
             if (floorType == FloorType.Enemy) {
                 floor.dir = new Vector2(5, 0);
-                floor.chamgeDirCounter = 20;
+                floor.changeDirCounter = 10;
             } else if (floorType == FloorType.Floor1 || floorType == FloorType.Floor2) {
                 floor.image = config.assets.bambu;
             }

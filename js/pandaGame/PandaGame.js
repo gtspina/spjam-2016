@@ -294,11 +294,11 @@ PandaGame.update = function(deltaTime) {
                     if (currFloor.type == FloorType.Enemy) {
                         currFloor.pos.X += currFloor.dir.X;
 
-                        currFloor.chamgeDirCounter -= 1;
+                        currFloor.changeDirCounter -= 1;
                     }
 
-                    if (currFloor.chamgeDirCounter < 1) {
-                        currFloor.chamgeDirCounter = 40;
+                    if (currFloor.changeDirCounter < 1) {
+                        currFloor.changeDirCounter = 20;
                         currFloor.dir.X *= -1;
                     }
                 }
