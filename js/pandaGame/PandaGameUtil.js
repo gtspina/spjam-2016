@@ -77,13 +77,13 @@ PandaGameUtil.relocate = function(config) {
     };
 };
 
-PandaGameUtil.generateFloors = function(initialPos, id) {
+PandaGameUtil.generateFloors = function(config) {
     var floors = [];
 
-    var mapFloor = pandaMaps[id];
+    var mapFloor = pandaMaps[config.id];
     var idFloor = 0;
 
-    var tempPos = new Vector2(initialPos.X, initialPos.Y);
+    var tempPos = new Vector2(config.initialPos.X, config.initialPos.Y);
     for (var indexRow in mapFloor) {
         //var colors = ["black", "orange", "transparent"];
         //var colors = ["transparent", "black", "orange", "blue",  "purple", "pink"];
@@ -93,7 +93,7 @@ PandaGameUtil.generateFloors = function(initialPos, id) {
         for (var indexColumn in floorRow) {
             var floorType = floorRow[indexColumn];
             var floor = new Floor({
-                id: id + "-floor" + idFloor,
+                id: config.id + "-floor" + idFloor,
                 active: true,
                 color: colors[floorType],
                 pos: new Vector2(tempPos.X, tempPos.Y),
@@ -102,7 +102,7 @@ PandaGameUtil.generateFloors = function(initialPos, id) {
                 type: floorType,
                 colPos: indexColumn,
                 rowPos: indexRow,
-                gameAreaId: id
+                gameAreaId: config.id
             });
 
             if (floorType == FloorType.Enemy) {
@@ -118,7 +118,7 @@ PandaGameUtil.generateFloors = function(initialPos, id) {
             floors.push(floor);
         }
         tempPos.Y += 80;
-        tempPos.X = initialPos.X;
+        tempPos.X = config.initialPos.X;
     }
 
     return floors;

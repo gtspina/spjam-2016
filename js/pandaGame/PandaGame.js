@@ -63,7 +63,10 @@ PandaGame.init = function() {
                 image: that.assets.img["bg1"],
                 prevId: "area-" + (i - 1),
                 nextId: "area-" + (i + 1),
-                floors: PandaGameUtil.generateFloors(tempPos, "area-" + i)
+                floors: PandaGameUtil.generateFloors({
+                    initialPos: tempPos,
+                    id: "area-" + i
+                })
             });
 
             if (i < 1) {
@@ -404,8 +407,6 @@ PandaGame.draw = function(printer) {
             origin: new Vector2(0, 0),
             image: that.assets.img["panda1"]
         });
-
-
 
         var area2 = PandaGameUtil.getById({
             gameObjs: that.gameAreas,
