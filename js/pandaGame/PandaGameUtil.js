@@ -46,7 +46,11 @@ PandaGameUtil.relocate = function(config) {
                 if (prev) {
                     //console.log(currGameObj.id, prev.id);
                     currGameObj.pos.X = prev.pos.X - currGameObj.width;
-                    currGameObj.floors = that.generateFloors(currGameObj.pos, currGameObj.id);
+                    currGameObj.floors = that.generateFloors({
+                        initialPos: currGameObj.pos,
+                        id: currGameObj.id,
+                        assets: config.assets
+                    });
                 }
             }
         }
@@ -67,7 +71,11 @@ PandaGameUtil.relocate = function(config) {
 
                 if (next) {
                     currGameObj.pos.X = next.pos.X + next.width;
-                    currGameObj.floors = that.generateFloors(currGameObj.pos, currGameObj.id);
+                    currGameObj.floors = that.generateFloors({
+                        initialPos: currGameObj.pos,
+                        id: currGameObj.id,
+                        assets: config.assets
+                    });
                     //console.log(currGameObj.id, prev.id);
                     //currGameObj.pos.X = next.pos.X - currGameObj.width;
 
@@ -83,6 +91,8 @@ PandaGameUtil.generateFloors = function(config) {
     var mapFloor = pandaMaps[config.id];
     var idFloor = 0;
 
+    console.log(config.assets.bambu);
+    
     var tempPos = new Vector2(config.initialPos.X, config.initialPos.Y);
     for (var indexRow in mapFloor) {
         //var colors = ["black", "orange", "transparent"];
@@ -109,11 +119,11 @@ PandaGameUtil.generateFloors = function(config) {
                 floor.dir = new Vector2(5, 0);
                 floor.chamgeDirCounter = 20;
             } else if (floorType == FloorType.Floor1 || floorType == FloorType.Floor2) {
-                
+                floor.image = config.assets.bambu;
             }
 
 
-            tempPos.X += 80;
+            tempPos.X += 50;
             idFloor += 1;
             floors.push(floor);
         }

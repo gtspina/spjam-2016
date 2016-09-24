@@ -65,7 +65,10 @@ PandaGame.init = function() {
                 nextId: "area-" + (i + 1),
                 floors: PandaGameUtil.generateFloors({
                     initialPos: tempPos,
-                    id: "area-" + i
+                    id: "area-" + i,
+                    assets: {
+                        bambu: that.assets.img["bambu"]
+                    }
                 })
             });
 
@@ -148,7 +151,10 @@ PandaGame.update = function(deltaTime) {
         PandaGameUtil.relocate({
             gameObjs: that.gameAreas,
             screenSize: 1024,
-            direction: direction
+            direction: direction,
+            assets: {
+                bambu: that.assets.img["bambu"]
+            }
         });
 
         isPlayerFalling();
@@ -368,14 +374,14 @@ PandaGame.update = function(deltaTime) {
 PandaGame.draw = function(printer) {
     var that = this;
 
-	printer.drawRect({
+    printer.drawRect({
         active: true,
         pos: new Vector2(0, 0),
         width: 1024,
         height: 768,
         color: "black"
     });
-	
+
     switch (that.currState) {
         case PandaGameState.InGame:
             inGame();
@@ -412,9 +418,6 @@ PandaGame.draw = function(printer) {
             gameObjs: that.gameAreas,
             id: "area-2"
         });
-
-        console.log(area2.floors[48]);
-
 
         printer.drawImage({
             pos: area2.floors[50].pos,
