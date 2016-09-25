@@ -166,29 +166,6 @@ PandaGame.update = function(deltaTime) {
         sucessGame();
         //verifyCollisionFloors();
 
-        function hasCollisionFloors() {
-            var areaId = PandaGameUtil.getPlayerArea(that.player, that.gameAreas);
-            var area = PandaGameUtil.getById({
-                gameObjs: that.gameAreas,
-                id: areaId
-            });
-
-            if (area) {
-                for (var index in area.floors) {
-                    var floor = area.floors[index];
-
-                    if (floor.type != FloorType.None) {
-                        if (GameUtil.hasRectCollision(that.player, floor)) {
-
-                        } else {
-
-                        }
-                    }
-
-                }
-            }
-        }
-
         function verifyCollisionFloors() {
             var areaId = PandaGameUtil.getPlayerArea(that.player, that.gameAreas);
             var area = PandaGameUtil.getById({
@@ -231,6 +208,7 @@ PandaGame.update = function(deltaTime) {
 
                 if (that.player.pos.Y + that.player.width < collisionInfo.floor.pos.Y + 10) {
                     that.player.vel.Y = 0;
+                    that.player.isJumping = false;
                 }
             }
 
@@ -239,11 +217,13 @@ PandaGame.update = function(deltaTime) {
 
             if (that.player.pos.Y > 660) {
                 that.player.pos.Y = 660;
+                that.player.isJumping = false;
             }
 
-            if (Keyboard.spaceClicked) {
+            if (!that.player.isJumping && Keyboard.spaceClicked) {
                 that.player.vel.Y = -10;
                 that.assets.audio["jump"].play();
+                that.player.isJumping = true;
             }
         }
 
