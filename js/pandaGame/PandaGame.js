@@ -63,7 +63,13 @@ PandaGame.init = function() {
                 image: that.assets.img["bg1"],
                 prevId: "area-" + (i - 1),
                 nextId: "area-" + (i + 1),
-                floors: PandaGameUtil.generateFloors(tempPos, "area-" + i)
+                floors: PandaGameUtil.generateFloors({
+                    initialPos: tempPos,
+                    id: "area-" + i,
+                    assets: {
+                        bambu: that.assets.img["bambu"]
+                    }
+                })
             });
 
             if (i < 1) {
@@ -145,7 +151,10 @@ PandaGame.update = function(deltaTime) {
         PandaGameUtil.relocate({
             gameObjs: that.gameAreas,
             screenSize: 1024,
-            direction: direction
+            direction: direction,
+            assets: {
+                bambu: that.assets.img["bambu"]
+            }
         });
 
         isPlayerFalling();
@@ -285,11 +294,11 @@ PandaGame.update = function(deltaTime) {
                     if (currFloor.type == FloorType.Enemy) {
                         currFloor.pos.X += currFloor.dir.X;
 
-                        currFloor.chamgeDirCounter -= 1;
+                        currFloor.changeDirCounter -= 1;
                     }
 
-                    if (currFloor.chamgeDirCounter < 1) {
-                        currFloor.chamgeDirCounter = 40;
+                    if (currFloor.changeDirCounter < 1) {
+                        currFloor.changeDirCounter = 20;
                         currFloor.dir.X *= -1;
                     }
                 }
@@ -365,14 +374,14 @@ PandaGame.update = function(deltaTime) {
 PandaGame.draw = function(printer) {
     var that = this;
 
-	printer.drawRect({
+    printer.drawRect({
         active: true,
         pos: new Vector2(0, 0),
         width: 1024,
         height: 768,
         color: "black"
     });
-	
+
     switch (that.currState) {
         case PandaGameState.InGame:
             inGame();
@@ -405,15 +414,10 @@ PandaGame.draw = function(printer) {
             image: that.assets.img["panda1"]
         });
 
-
-
         var area2 = PandaGameUtil.getById({
             gameObjs: that.gameAreas,
             id: "area-2"
         });
-
-        console.log(area2.floors[48]);
-
 
         printer.drawImage({
             pos: area2.floors[50].pos,

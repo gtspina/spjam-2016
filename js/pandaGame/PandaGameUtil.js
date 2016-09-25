@@ -46,7 +46,11 @@ PandaGameUtil.relocate = function(config) {
                 if (prev) {
                     //console.log(currGameObj.id, prev.id);
                     currGameObj.pos.X = prev.pos.X - currGameObj.width;
-                    currGameObj.floors = that.generateFloors(currGameObj.pos, currGameObj.id);
+                    currGameObj.floors = that.generateFloors({
+                        initialPos: currGameObj.pos,
+                        id: currGameObj.id,
+                        assets: config.assets
+                    });
                 }
             }
         }
@@ -67,7 +71,11 @@ PandaGameUtil.relocate = function(config) {
 
                 if (next) {
                     currGameObj.pos.X = next.pos.X + next.width;
-                    currGameObj.floors = that.generateFloors(currGameObj.pos, currGameObj.id);
+                    currGameObj.floors = that.generateFloors({
+                        initialPos: currGameObj.pos,
+                        id: currGameObj.id,
+                        assets: config.assets
+                    });
                     //console.log(currGameObj.id, prev.id);
                     //currGameObj.pos.X = next.pos.X - currGameObj.width;
 
@@ -77,13 +85,15 @@ PandaGameUtil.relocate = function(config) {
     };
 };
 
-PandaGameUtil.generateFloors = function(initialPos, id) {
+PandaGameUtil.generateFloors = function(config) {
     var floors = [];
 
-    var mapFloor = pandaMaps[id];
+    var mapFloor = pandaMaps[config.id];
     var idFloor = 0;
 
-    var tempPos = new Vector2(initialPos.X, initialPos.Y);
+    console.log(config.assets.bambu);
+    
+    var tempPos = new Vector2(config.initialPos.X, config.initialPos.Y);
     for (var indexRow in mapFloor) {
         //var colors = ["black", "orange", "transparent"];
         //var colors = ["transparent", "black", "orange", "blue",  "purple", "pink"];
@@ -93,7 +103,7 @@ PandaGameUtil.generateFloors = function(initialPos, id) {
         for (var indexColumn in floorRow) {
             var floorType = floorRow[indexColumn];
             var floor = new Floor({
-                id: id + "-floor" + idFloor,
+                id: config.id + "-floor" + idFloor,
                 active: true,
                 color: colors[floorType],
                 pos: new Vector2(tempPos.X, tempPos.Y),
@@ -102,23 +112,23 @@ PandaGameUtil.generateFloors = function(initialPos, id) {
                 type: floorType,
                 colPos: indexColumn,
                 rowPos: indexRow,
-                gameAreaId: id
+                gameAreaId: config.id
             });
 
             if (floorType == FloorType.Enemy) {
                 floor.dir = new Vector2(5, 0);
-                floor.chamgeDirCounter = 20;
+                floor.changeDirCounter = 10;
             } else if (floorType == FloorType.Floor1 || floorType == FloorType.Floor2) {
-                
+                floor.image = config.assets.bambu;
             }
 
 
-            tempPos.X += 80;
+            tempPos.X += 50;
             idFloor += 1;
             floors.push(floor);
         }
         tempPos.Y += 80;
-        tempPos.X = initialPos.X;
+        tempPos.X = config.initialPos.X;
     }
 
     return floors;
