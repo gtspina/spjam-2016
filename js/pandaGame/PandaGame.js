@@ -166,29 +166,6 @@ PandaGame.update = function(deltaTime) {
         sucessGame();
         //verifyCollisionFloors();
 
-        function hasCollisionFloors() {
-            var areaId = PandaGameUtil.getPlayerArea(that.player, that.gameAreas);
-            var area = PandaGameUtil.getById({
-                gameObjs: that.gameAreas,
-                id: areaId
-            });
-
-            if (area) {
-                for (var index in area.floors) {
-                    var floor = area.floors[index];
-
-                    if (floor.type != FloorType.None) {
-                        if (GameUtil.hasRectCollision(that.player, floor)) {
-
-                        } else {
-
-                        }
-                    }
-
-                }
-            }
-        }
-
         function verifyCollisionFloors() {
             var areaId = PandaGameUtil.getPlayerArea(that.player, that.gameAreas);
             var area = PandaGameUtil.getById({
